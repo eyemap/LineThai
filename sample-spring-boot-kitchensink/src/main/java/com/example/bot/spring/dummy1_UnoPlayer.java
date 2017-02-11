@@ -145,7 +145,8 @@ public class dummy1_UnoPlayer implements UnoPlayer {
 }
                   
 long startTime = System.currentTimeMillis(); //fetch starting time
-while((System.currentTimeMillis()-startTime)<30000||!(status.startsWith("Card")))
+//while(!(status.startsWith("Card"))||((System.currentTimeMillis()-startTime)<30000))
+while ((System.currentTimeMillis()-startTime)<10000)
 {
     // do something
 }                       
