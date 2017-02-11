@@ -90,7 +90,7 @@ public class KitchenSinkController {
     
     static boolean PRINT_VERBOSE = false;
     final String channalKey ="xlHZZWi0tluGrr9/pPGtO6WK4h6Sbs8Uw9VdILnynXrv7QyRgCgBPHc6/LQma3LlDMOr5nsp9C88HUY0omCxnQoUTUlztfcWE93h2/ro05fZMWT72MzNqsBYXX80ZnehBPHXEtfXdiyYMjlK2RmTMgdB04t89/1O/w1cDnyilFU=";
-
+static String status = "begin";
     @Autowired
     private LineMessagingService lineMessagingService;
 
@@ -159,7 +159,7 @@ System.out.println(response.code() + " " + response.message());
     public void handlePostbackEvent(PostbackEvent event) throws IOException {
          
         String replyToken = event.getReplyToken();
-        String status = event.getPostbackContent().getData(); // JoinGroup,Card,Color
+        this.status = event.getPostbackContent().getData(); // JoinGroup,Card,Color
         String userId = event.getSource().getUserId();
         String userName ="";  
                 if (userId != null) {
@@ -178,8 +178,8 @@ System.out.println(response.code() + " " + response.message());
                 }
         
         //this.replyText(replyToken, "before Scoreboard");
-        if (status.startsWith("JoinGroup")) {
-            this.replyText(replyToken, userName+ " : You have joined Uno " + status.substring(4));
+        if (this.status.startsWith("JoinGroup")) {
+            this.replyText(replyToken, userName+ " : You have joined Uno " + this.status.substring(4));
         ArrayList<String> playerNames = new ArrayList<String>();
      ArrayList<String> playerClasses = new ArrayList<String>();
         //this.pushText(userId, "before Scoreboard");
@@ -197,9 +197,9 @@ System.out.println(response.code() + " " + response.message());
             
             Scoreboard s = new Scoreboard(playerNames.toArray(new String[0]));
             this.pushText(userId, "after Scoreboard");
-                Game g = new Game(s,playerClasses,userId,status);
+                Game g = new Game(s,playerClasses,userId,this.status);
                 this.pushText(userId, "before play");
-                status = "Playing";
+                this.status = "Playing";
                 g.play();
             playerNames.clear();
             playerClasses.clear();
@@ -209,7 +209,7 @@ System.out.println(response.code() + " " + response.message());
             this.pushText(userId,e.getMessage());
         }
         }  else{
-            if (status.startsWith("Card")){
+            if (this.status.startsWith("Card")){
                 this.pushText(userId,status);
             }
         }
@@ -434,7 +434,7 @@ System.out.println(response.code() + " " + response.message());
                                           .path(path).build()
                                           .toUriString();
     }
-
+    
    
 }
 

@@ -42,7 +42,7 @@ public class dummy1_UnoPlayer implements UnoPlayer {
 	
 	
         
-	public int play(List<Card> hand, Card upCard, Color calledColor, GameState state, String userId,String status){
+	public int play(List<Card> hand, Card upCard, Color calledColor, GameState state, String userId,String status1){
 		
 		/* ต้องมี handCanPlay ที่เป็น ArrayList ของ Card เพื่อเก็บ Card ที่สามารถเล่นบน
             UpCard ได้ โดย input จะมาจาก hand  แต่ต้องมี Hashtable เก็บค่า index ของ hand คู่กับ 
@@ -138,18 +138,27 @@ public class dummy1_UnoPlayer implements UnoPlayer {
                     
                 }
                        
-                       try {
-    Thread.sleep(60000);           
-} catch(InterruptedException ex) {
-    Thread.currentThread().interrupt();
-}
+//                       try {
+//    Thread.sleep(60000);           
+//} catch(InterruptedException ex) {
+//    Thread.currentThread().interrupt();
+//}
                   
 long startTime = System.currentTimeMillis(); //fetch starting time
 //while(!(status.startsWith("Card"))||((System.currentTimeMillis()-startTime)<30000))
 while ((System.currentTimeMillis()-startTime)<10000)
 {
     // do something
-}                       
+    String temp = KitchenSinkController.status;
+    if (temp.startsWith("Card")){
+        break;
+    }
+} 
+try {                  
+                        this.pushText(userId,KitchenSinkController.status);
+                    } catch (IOException ex) {
+                        Logger.getLogger(dummy1_UnoPlayer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
 // รับ input จาก User ว่าจะเลือก Card ไหน
                     /*
                     try {                  
