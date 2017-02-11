@@ -146,11 +146,11 @@ public class dummy1_UnoPlayer implements UnoPlayer {
                   
 long startTime = System.currentTimeMillis(); //fetch starting time
 //while(!(status.startsWith("Card"))||((System.currentTimeMillis()-startTime)<30000))
-while ((System.currentTimeMillis()-startTime)<10000)
+while ((System.currentTimeMillis()-startTime)<60000)
 {
     // do something
-    String temp = KitchenSinkController.status;
-    if (temp.startsWith("Card")){
+     
+    if (KitchenSinkController.status.startsWith("Card")){
         KitchenSinkController.status = "Selected_Card";
         break;
     }
