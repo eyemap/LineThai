@@ -159,7 +159,7 @@ System.out.println(response.code() + " " + response.message());
     public void handlePostbackEvent(PostbackEvent event) throws IOException {
          
         String replyToken = event.getReplyToken();
-        this.status = event.getPostbackContent().getData(); // JoinGroup,Card,Color
+        KitchenSinkController.status = event.getPostbackContent().getData(); // JoinGroup,Card,Color
         String userId = event.getSource().getUserId();
         String userName ="";  
                 if (userId != null) {
@@ -178,8 +178,8 @@ System.out.println(response.code() + " " + response.message());
                 }
         
         //this.replyText(replyToken, "before Scoreboard");
-        if (this.status.startsWith("JoinGroup")) {
-            this.replyText(replyToken, userName+ " : You have joined Uno " + this.status.substring(4));
+        if (KitchenSinkController.status.startsWith("JoinGroup")) {
+            this.replyText(replyToken, userName+ " : You have joined Uno " + KitchenSinkController.status.substring(4));
         ArrayList<String> playerNames = new ArrayList<String>();
      ArrayList<String> playerClasses = new ArrayList<String>();
         //this.pushText(userId, "before Scoreboard");
@@ -197,9 +197,9 @@ System.out.println(response.code() + " " + response.message());
             
             Scoreboard s = new Scoreboard(playerNames.toArray(new String[0]));
             this.pushText(userId, "after Scoreboard");
-                Game g = new Game(s,playerClasses,userId,this.status);
+                Game g = new Game(s,playerClasses,userId,KitchenSinkController.status);
                 this.pushText(userId, "before play");
-                this.status = "Playing";
+                KitchenSinkController.status = "Playing";
                 g.play();
             playerNames.clear();
             playerClasses.clear();
@@ -209,7 +209,7 @@ System.out.println(response.code() + " " + response.message());
             this.pushText(userId,e.getMessage());
         }
         }  else{
-            if (this.status.startsWith("Card")){
+            if (KitchenSinkController.status.startsWith("Card")){
                 this.pushText(userId,status);
             }
         }
