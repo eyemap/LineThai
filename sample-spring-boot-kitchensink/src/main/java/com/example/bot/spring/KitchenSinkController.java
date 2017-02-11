@@ -176,12 +176,13 @@ System.out.println(response.code() + " " + response.message());
                 } else {
                     this.replyText(replyToken, "Bot can't use profile API without user ID");
                 }
-        this.replyText(replyToken, userName+ " : You have joined Uno " + status.substring(4));
+        
         //this.replyText(replyToken, "before Scoreboard");
         if (status.startsWith("JoinGroup")) {
+            this.replyText(replyToken, userName+ " : You have joined Uno " + status.substring(4));
         ArrayList<String> playerNames = new ArrayList<String>();
      ArrayList<String> playerClasses = new ArrayList<String>();
-        this.pushText(userId, "before Scoreboard");
+        //this.pushText(userId, "before Scoreboard");
         playerNames.add("BOT1");
         playerNames.add("BOT2");
         playerNames.add("BOT3");

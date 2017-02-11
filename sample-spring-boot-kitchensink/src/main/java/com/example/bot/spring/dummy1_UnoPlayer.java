@@ -143,7 +143,13 @@ public class dummy1_UnoPlayer implements UnoPlayer {
 } catch(InterruptedException ex) {
     Thread.currentThread().interrupt();
 }
-                    // รับ input จาก User ว่าจะเลือก Card ไหน
+                  
+long startTime = System.currentTimeMillis(); //fetch starting time
+while((System.currentTimeMillis()-startTime)<30000||!(status.startsWith("Card")))
+{
+    // do something
+}                       
+// รับ input จาก User ว่าจะเลือก Card ไหน
                     /*
                     try {                  
                         this.pushText(userId,"Select: ");
