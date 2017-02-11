@@ -159,6 +159,7 @@ try {
                     } catch (IOException ex) {
                         Logger.getLogger(dummy1_UnoPlayer.class.getName()).log(Level.SEVERE, null, ex);
                     }
+KitchenSinkController.status = "Selected_Card";
 // รับ input จาก User ว่าจะเลือก Card ไหน
                     /*
                     try {                  
