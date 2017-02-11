@@ -235,6 +235,7 @@ System.out.println(response.code() + " " + response.message());
         //println("Initial upcard is " + upCard + ".");
         
         this.pushText(userId, "Initial upcard is " + upCard + ".");
+        //String imageUrl = createUri("/static/buttons/"+upCard+".jpg");
         String imageUrl = createUri("/static/buttons/B0.jpg");
         pushImage(userId,imageUrl); 
         try {

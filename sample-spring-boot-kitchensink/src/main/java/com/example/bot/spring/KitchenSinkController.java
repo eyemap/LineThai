@@ -94,6 +94,7 @@ public class KitchenSinkController {
     @Autowired
     private LineMessagingService lineMessagingService;
 
+    
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws IOException {
         TextMessageContent message = event.getMessage();
