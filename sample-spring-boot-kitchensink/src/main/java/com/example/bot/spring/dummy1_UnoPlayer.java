@@ -1,21 +1,17 @@
 package com.example.bot.spring;
 
-import com.linecorp.bot.client.LineMessagingService;
 import com.linecorp.bot.client.LineMessagingServiceBuilder;
 import com.linecorp.bot.model.PushMessage;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.action.URIAction;
-import com.linecorp.bot.model.event.PostbackEvent;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
-import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
-import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +22,6 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lombok.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import retrofit2.Response;
 
@@ -44,29 +39,8 @@ public class dummy1_UnoPlayer implements UnoPlayer {
 	UnoPlayer.Rank drawTwo = UnoPlayer.Rank.DRAW_TWO;
 	UnoPlayer.Rank wildDrawFour = UnoPlayer.Rank.WILD_D4;
 	UnoPlayer.Rank wild = UnoPlayer.Rank.WILD;
-	@Autowired
-    private LineMessagingService lineMessagingService;
-	@EventMapping
-    public void handlePostbackEvent(PostbackEvent event) throws IOException {
-        String replyToken = event.getReplyToken();
-        String  temp = event.getPostbackContent().getData(); // JoinGroup,Card,Color
-        String userId = event.getSource().getUserId();
-        String userName ="";  
-                if (userId != null) {
-                    Response<UserProfileResponse> response = lineMessagingService
-                            .getProfile(userId)
-                            .execute();
-                    if (response.isSuccessful()) {
-                        UserProfileResponse profiles = response.body();
-                        userName = profiles.getDisplayName();
-                        this.pushText(userId, userName);
-                    } else {
-                        this.pushText(userId, response.errorBody().string());
-                    }
-                } else {
-                    this.pushText(userId, "Bot can't use profile API without user ID");
-                }
-    }
+	
+	
         
 	public int play(List<Card> hand, Card upCard, Color calledColor, GameState state, String userId,String status1){
 		
@@ -172,7 +146,8 @@ public class dummy1_UnoPlayer implements UnoPlayer {
                   
 long startTime = System.currentTimeMillis(); //fetch starting time
 //while(!(status.startsWith("Card"))||((System.currentTimeMillis()-startTime)<30000))
-while ((System.currentTimeMillis()-startTime)<60000)
+//while ((System.currentTimeMillis()-startTime)<60000)
+while (true)
 {
     // do something
      
