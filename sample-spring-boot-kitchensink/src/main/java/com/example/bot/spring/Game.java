@@ -57,6 +57,7 @@ final String channalKey ="xlHZZWi0tluGrr9/pPGtO6WK4h6Sbs8Uw9VdILnynXrv7QyRgCgBPH
 
     /* package-visibility variables to simplify access between Game and
      * GameState classes */
+    String status;
     String userId;
     Deck deck;
     Hand h[];
@@ -79,10 +80,11 @@ final String channalKey ="xlHZZWi0tluGrr9/pPGtO6WK4h6Sbs8Uw9VdILnynXrv7QyRgCgBPH
      * fully-qualified package/class name of a class that implements the
      * UnoPlayer interface.
      */
-    public Game(Scoreboard scoreboard, ArrayList<String> playerClassList,String userId) throws IOException {
+    public Game(Scoreboard scoreboard, ArrayList<String> playerClassList,String userId,String status) throws IOException {
         
         this.scoreboard = scoreboard;
         this.userId = userId;
+        this.status = status;
         deck = new Deck();
         int no_of_play = scoreboard.getNumPlayers();
         // h = new Hand[scoreboard.getNumPlayers()];
@@ -97,7 +99,7 @@ final String channalKey ="xlHZZWi0tluGrr9/pPGtO6WK4h6Sbs8Uw9VdILnynXrv7QyRgCgBPH
         try {
             for (int i=0; i<scoreboard.getNumPlayers(); i++) {
                 h[i] = new Hand(playerClassList.get(i),
-                    scoreboard.getPlayerList()[i],userId);
+                    scoreboard.getPlayerList()[i],userId,status);
                 for (int j=0; j<INIT_HAND_SIZE; j++) {
                     h[i].addCard(deck.draw());
                 }

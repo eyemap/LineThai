@@ -157,10 +157,9 @@ System.out.println(response.code() + " " + response.message());
     
     @EventMapping
     public void handlePostbackEvent(PostbackEvent event) throws IOException {
-         ArrayList<String> playerNames = new ArrayList<String>();
-     ArrayList<String> playerClasses = new ArrayList<String>();
+         
         String replyToken = event.getReplyToken();
-        String groupJoin = event.getPostbackContent().getData();
+        String status = event.getPostbackContent().getData(); // JoinGroup,Card,Color
         String userId = event.getSource().getUserId();
         String userName ="";  
                 if (userId != null) {
@@ -177,11 +176,11 @@ System.out.println(response.code() + " " + response.message());
                 } else {
                     this.replyText(replyToken, "Bot can't use profile API without user ID");
                 }
-        this.replyText(replyToken, userName+ " : You have joined Uno " + groupJoin.substring(4));
+        this.replyText(replyToken, userName+ " : You have joined Uno " + status.substring(4));
         //this.replyText(replyToken, "before Scoreboard");
-        
-                
-        
+        if (status.startsWith("JoinGroup")) {
+        ArrayList<String> playerNames = new ArrayList<String>();
+     ArrayList<String> playerClasses = new ArrayList<String>();
         this.pushText(userId, "before Scoreboard");
         playerNames.add("BOT1");
         playerNames.add("BOT2");
@@ -192,13 +191,14 @@ System.out.println(response.code() + " " + response.message());
         playerClasses.add("com.example.bot.spring.dummy2_UnoPlayer");
         
         playerClasses.add("com.example.bot.spring.dummy1_UnoPlayer");
-        
+      
        try {
             
             Scoreboard s = new Scoreboard(playerNames.toArray(new String[0]));
             this.pushText(userId, "after Scoreboard");
-                Game g = new Game(s,playerClasses,userId);
+                Game g = new Game(s,playerClasses,userId,status);
                 this.pushText(userId, "before play");
+                status = "Playing";
                 g.play();
             playerNames.clear();
             playerClasses.clear();
@@ -207,7 +207,11 @@ System.out.println(response.code() + " " + response.message());
         catch (Exception e) {
             this.pushText(userId,e.getMessage());
         }
-        
+        }  else{
+            if (status.startsWith("Card")){
+                this.pushText(userId,status);
+            }
+        }
                 
     }
 

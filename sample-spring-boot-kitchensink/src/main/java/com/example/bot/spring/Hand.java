@@ -24,6 +24,7 @@ public class Hand {
     private UnoPlayer player;
     private String playerName;
     public String userId;
+    public String status;
 
     /**
      * Instantiate a Hand object to be played by the UnoPlayer class, and
@@ -31,8 +32,9 @@ public class Hand {
      * pattern whereby the constructor accepts various strategies that
      * implement the UnoPlayer interface.
      */
-    public Hand(String unoPlayerClassName, String playerName, String userId) throws IOException, InstantiationException, IllegalAccessException {
+    public Hand(String unoPlayerClassName, String playerName, String userId,String status) throws IOException, InstantiationException, IllegalAccessException {
         this.userId = userId;
+        this.status = status;
         try {
             player = (UnoPlayer)
                 Class.forName(unoPlayerClassName).newInstance();
@@ -89,7 +91,7 @@ System.out.println(response.code() + " " + response.message());
     Card play(Game game) {
         int playedCard;
         playedCard = player.play(cards, game.getUpCard(), game.calledColor,
-            game.getGameState(),userId);
+            game.getGameState(),userId, status);
         if (playedCard == -1) {
             return null;
         }
