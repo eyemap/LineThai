@@ -66,6 +66,7 @@ public class dummy1_UnoPlayer implements UnoPlayer {
                         
                         handCanPlay.add(hand.get(i));
                         hashMap.put(k,i);
+                    
                         //hashMap.put(Integer.toString(k), Integer.toString(i));
                         k=k+1;
                     }else {
@@ -155,15 +156,11 @@ while ((System.currentTimeMillis()-startTime)<30000)
                             Logger.getLogger(dummy1_UnoPlayer.class.getName()).log(Level.SEVERE, null, ex);
                         }
     if (KitchenSinkController.status.startsWith("Card")){
-        KitchenSinkController.status = "Selected_Card";
+        
         break;
     }
 } 
-try {                  
-                        this.pushText(userId,KitchenSinkController.status);
-                    } catch (IOException ex) {
-                        Logger.getLogger(dummy1_UnoPlayer.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+
 
 // รับ input จาก User ว่าจะเลือก Card ไหน
                     /*
@@ -174,9 +171,25 @@ try {
                     }
                     */
                         int number1 = 0;
+                        if (KitchenSinkController.status.startsWith("Card")){
+                            number1 = Integer.parseInt(KitchenSinkController.status.substring(3)) ;
+                            KitchenSinkController.status = ("UserSelected");
+                        } else {
+                            try {                  
+                        this.pushText(userId,"You don't select we select for you");
+                        KitchenSinkController.status = ("We Just Select for you");
+                    } catch (IOException ex) {
+                        Logger.getLogger(dummy1_UnoPlayer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                        }
+                            
                         //String indexOfhand;
                         // indexOfhand = hashMap.get(Integer.toString(number1));
-                        
+                        try {                  
+                        this.pushText(userId,KitchenSinkController.status);
+                    } catch (IOException ex) {
+                        Logger.getLogger(dummy1_UnoPlayer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     //return  Integer.parseInt(indexOfhand);
                     return  hashMap.get(number1);
                 }
