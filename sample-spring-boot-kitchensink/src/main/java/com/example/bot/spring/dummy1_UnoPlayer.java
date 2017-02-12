@@ -172,7 +172,8 @@ while ((System.currentTimeMillis()-startTime)<30000)
                     */
                         int number1 = 0;
                         if (KitchenSinkController.status.startsWith("Card")){
-                            number1 = Integer.parseInt(KitchenSinkController.status.substring(3)) ;
+                            String temp = KitchenSinkController.status.substring(4);
+                            number1 = Integer.parseInt(temp) ;
                             KitchenSinkController.status = ("UserSelected");
                         } else {
                             try {                  
