@@ -174,6 +174,11 @@ while ((System.currentTimeMillis()-startTime)<30000)
                         if (KitchenSinkController.status.startsWith("Card")){
                             String temp = KitchenSinkController.status.substring(4);
                             number1 = Integer.parseInt(temp) ;
+                            try {                  
+                        this.pushText(userId,"U Just Select "+KitchenSinkController.status);
+                    } catch (IOException ex) {
+                        Logger.getLogger(dummy1_UnoPlayer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                             KitchenSinkController.status = ("UserSelected");
                         } else {
                             try {                  

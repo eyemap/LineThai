@@ -210,7 +210,7 @@ System.out.println(response.code() + " " + response.message());
         }
         }  else{
             if (KitchenSinkController.status.startsWith("Card")){
-                this.pushText(userId,status);
+                //this.pushText(userId,status);
             }
         }
                 
