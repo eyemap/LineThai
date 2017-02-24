@@ -214,7 +214,9 @@ System.out.println(response.code() + " " + response.message());
         int i= 0;
         ResultSetMetaData meta = rs.getMetaData();
         SimpleResultSet rs2 = new SimpleResultSet();
-        
+        rs2.addColumn("USERID", Types.VARCHAR, 255, 0);
+        rs2.addColumn("USERNAME", Types.VARCHAR, 255, 0);
+        rs2.addColumn("PLAYING", Types.VARCHAR, 255, 0);
         while (rs.next()) {
                 
             for (int j = 0; j < meta.getColumnCount(); j++) {
