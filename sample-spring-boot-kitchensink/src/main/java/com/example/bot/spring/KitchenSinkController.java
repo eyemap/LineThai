@@ -16,6 +16,10 @@
 
 package com.example.bot.spring;
 
+import java.sql.*;
+import org.h2.tools.Csv;
+import org.h2.tools.SimpleResultSet;
+
 import java.io.IOException;
 
 import java.io.UncheckedIOException;
@@ -71,6 +75,8 @@ import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 // Eak Newest import javax.print.DocFlavor;
 
 import lombok.NonNull;
@@ -101,7 +107,11 @@ static HashMap<String,Integer> round = new HashMap<String,Integer>();
     @EventMapping
     public void handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws IOException {
         TextMessageContent message = event.getMessage();
-        handleTextContent(event.getReplyToken(), event, message);
+        try {
+            handleTextContent(event.getReplyToken(), event, message);
+        } catch (SQLException ex) {
+           // Logger.getLogger(KitchenSinkController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @EventMapping
@@ -163,9 +173,30 @@ Response<BotApiResponse> response =
                 .execute();
 System.out.println(response.code() + " " + response.message());
     }
-    
+    private void testDB(String replyToken) throws SQLException
+{
+             SimpleResultSet rs = new SimpleResultSet();
+        rs.addColumn("NAME", Types.VARCHAR, 255, 0);
+        rs.addColumn("EMAIL", Types.VARCHAR, 255, 0);
+        rs.addRow("Bob Meier", "bob.meier@abcde.abc");
+        rs.addRow("John Jones", "john.jones@abcde.abc");
+        new Csv().write("data/test.csv", rs, null);
+        
+        ResultSet rs2 = new Csv().read("data/test.csv", null, null);
+        ResultSetMetaData meta = rs2.getMetaData();
+        String tempStr = "";
+        while (rs2.next()) {
+            for (int i = 0; i < meta.getColumnCount(); i++) {
+                tempStr = tempStr + meta.getColumnLabel(i + 1) + ": " +
+                    rs2.getString(i + 1);
+            }
+            this.replyText(replyToken, tempStr);
+        }
+        rs.close();
+}
+
         private void handleTextContent(String replyToken, Event event, TextMessageContent content)
-            throws IOException {
+            throws IOException, SQLException {
         String text = content.getText();
 String userId = event.getSource().getUserId();
 
@@ -315,9 +346,12 @@ String userId = event.getSource().getUserId();
                 this.reply(replyToken, templateMessage);
                 break;
             }
-            case "test" : this.replyText(replyToken,text);
+            case "test" : {//this.replyText(replyToken,text);
+                testDB(replyToken);
+       
+        
             break;
-                
+            }      
             default:
                 //log.info("Returns echo message {}: {}", replyToken, text);
                 //this.replyText(replyToken,text);
