@@ -212,7 +212,24 @@ System.out.println(response.code() + " " + response.message());
         
         ResultSet rs2 = new Csv().read("data/test.csv", null, null);
         ResultSetMetaData meta = rs2.getMetaData();
+        rs2.beforeFirst();
+        while (rs2.next()) {
+            String tempStr = "";
+            for (int i = 0; i < meta.getColumnCount(); i++) {
+                tempStr = tempStr + meta.getColumnLabel(i + 1) + ": " +
+                    rs2.getString(i + 1);
+            }
+            this.pushText(userID, tempStr);
+        }
+    
+}
+        private void readDB(String userID) throws SQLException
+{
+         
         
+        ResultSet rs2 = new Csv().read("data/test.csv", null, null);
+        ResultSetMetaData meta = rs2.getMetaData();
+        rs2.beforeFirst();
         while (rs2.next()) {
             String tempStr = "";
             for (int i = 0; i < meta.getColumnCount(); i++) {
@@ -398,9 +415,15 @@ String userId = event.getSource().getUserId();
         
             break;
             }  
+                        case "read" : {//this.replyText(replyToken,text);
+                readDB(userId);
+       
+        
+            break;
+            } 
              case "add" : {//this.replyText(replyToken,text);
-                addDB(userId,"2","EAK","0");
-                addDB(userId,"3","BEE","1");
+                addDB(userId,"5","ABC","0");
+                addDB(userId,"6","DEF","1");
        
             break;
             }
