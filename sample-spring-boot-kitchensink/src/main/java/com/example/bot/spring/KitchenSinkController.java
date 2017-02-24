@@ -17,8 +17,9 @@
 package com.example.bot.spring;
 
 import java.sql.*;
-import org.h2.tools.Csv;
-import org.h2.tools.SimpleResultSet;
+ import org.h2.tools.Csv;
+ import org.h2.tools.SimpleResultSet;
+
 
 import java.io.IOException;
 
@@ -141,13 +142,13 @@ static HashMap<String,Integer> round = new HashMap<String,Integer>();
         String replyToken = event.getReplyToken();
         this.replyText(replyToken, welcome);
     }
-    private void pushText(@NonNull String userId, @NonNull String messages) throws IOException {
+    private void pushText(@NonNull String userId, @NonNull String messages) {
        TextMessage textMessage = new TextMessage(messages);
 PushMessage pushMessage = new PushMessage(
         userId,
         textMessage
 );
-
+try {
 Response<BotApiResponse> response =
         LineMessagingServiceBuilder
                 .create(channalKey)
@@ -155,6 +156,9 @@ Response<BotApiResponse> response =
                 .pushMessage(pushMessage)
                 .execute();
 System.out.println(response.code() + " " + response.message());
+} catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
    
     private void pushImage(@NonNull String userId, @NonNull String imageUrl) throws IOException {
@@ -173,7 +177,7 @@ Response<BotApiResponse> response =
                 .execute();
 System.out.println(response.code() + " " + response.message());
     }
-    private void testDB(String replyToken) throws SQLException
+    private void testDB(String userID) throws SQLException
 {
              SimpleResultSet rs = new SimpleResultSet();
         rs.addColumn("NAME", Types.VARCHAR, 255, 0);
@@ -190,7 +194,7 @@ System.out.println(response.code() + " " + response.message());
                 tempStr = tempStr + meta.getColumnLabel(i + 1) + ": " +
                     rs2.getString(i + 1);
             }
-            this.replyText(replyToken, tempStr);
+            this.pushText(userID, tempStr);
         }
         rs.close();
 }
@@ -347,7 +351,7 @@ String userId = event.getSource().getUserId();
                 break;
             }
             case "test" : {//this.replyText(replyToken,text);
-                testDB(replyToken);
+                testDB(userId);
        
         
             break;
