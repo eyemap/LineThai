@@ -180,10 +180,10 @@ System.out.println(response.code() + " " + response.message());
     private void testDB(String userID) throws SQLException
 {
              SimpleResultSet rs = new SimpleResultSet();
-        rs.addColumn("NAME", Types.VARCHAR, 255, 0);
-        rs.addColumn("EMAIL", Types.VARCHAR, 255, 0);
-        rs.addRow("Bob Meier", "bob.meier@abcde.abc");
-        rs.addRow("John Jones", "john.jones@abcde.abc");
+        rs.addColumn("USERID", Types.VARCHAR, 255, 0);
+        rs.addColumn("USERNAME", Types.VARCHAR, 255, 0);
+        rs.addRow("1", "OZONE");
+        
         new Csv().write("data/test.csv", rs, null);
         
         ResultSet rs2 = new Csv().read("data/test.csv", null, null);
