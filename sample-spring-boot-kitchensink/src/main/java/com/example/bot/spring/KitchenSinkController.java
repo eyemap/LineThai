@@ -200,7 +200,29 @@ System.out.println(response.code() + " " + response.message());
         }
         rs2.close();
 }
-
+        private void addDB(String userID,String ID,String Name,String Playing) throws SQLException
+{
+             SimpleResultSet rs = new SimpleResultSet();
+        rs.addColumn("USERID", Types.VARCHAR, 255, 0);
+        rs.addColumn("USERNAME", Types.VARCHAR, 255, 0);
+        rs.addColumn("PLAYING", Types.VARCHAR, 255, 0);
+        rs.addRow(ID, Name,Playing);
+        
+        new Csv().write("data/test.csv", rs, null);
+        
+        ResultSet rs2 = new Csv().read("data/test.csv", null, null);
+        ResultSetMetaData meta = rs2.getMetaData();
+        
+        while (rs2.next()) {
+            String tempStr = "";
+            for (int i = 0; i < meta.getColumnCount(); i++) {
+                tempStr = tempStr + meta.getColumnLabel(i + 1) + ": " +
+                    rs2.getString(i + 1);
+            }
+            this.pushText(userID, tempStr);
+        }
+    
+}
 //     private String [] readDB() throws SQLException
 //{
 //      ArrayList<String> myArrList = new ArrayList<String>();
@@ -375,7 +397,13 @@ String userId = event.getSource().getUserId();
        
         
             break;
-            }      
+            }  
+             case "add" : {//this.replyText(replyToken,text);
+                addDB(userId,"2","EAK","0");
+                addDB(userId,"3","BEE","1");
+       
+            break;
+            }
             default:
                 //log.info("Returns echo message {}: {}", replyToken, text);
                 //this.replyText(replyToken,text);
