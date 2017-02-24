@@ -182,8 +182,9 @@ System.out.println(response.code() + " " + response.message());
              SimpleResultSet rs = new SimpleResultSet();
         rs.addColumn("USERID", Types.VARCHAR, 255, 0);
         rs.addColumn("USERNAME", Types.VARCHAR, 255, 0);
-        rs.addRow("2", "EaK");
-        rs.addRow("3", "Bee");
+        rs.addColumn("PLAYING", Types.VARCHAR, 255, 0);
+        rs.addRow("1", "Ozone","0");
+        
         new Csv().write("data/test.csv", rs, null);
         
         ResultSet rs2 = new Csv().read("data/test.csv", null, null);
@@ -197,9 +198,27 @@ System.out.println(response.code() + " " + response.message());
             }
             this.pushText(userID, tempStr);
         }
-        rs.close();
+        rs2.close();
 }
 
+//     private String [] readDB() throws SQLException
+//{
+//      ArrayList<String> myArrList = new ArrayList<String>();
+//        ResultSet rs2 = new Csv().read("data/test.csv", null, null);
+//        ResultSetMetaData meta = rs2.getMetaData();
+//        
+//        while (rs2.next()) {
+//            
+//            for (int i = 0; i < meta.getColumnCount(); i++) {
+//                
+//                    myArrList.add(rs2.getString(i + 1));
+//            }
+//           // this.pushText(userID, tempStr);
+//        }
+//        rs2.close();
+//        return myArrList.();
+//}   
+    
         private void handleTextContent(String replyToken, Event event, TextMessageContent content)
             throws IOException, SQLException {
         String text = content.getText();
