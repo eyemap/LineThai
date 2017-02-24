@@ -219,17 +219,17 @@ System.out.println(response.code() + " " + response.message());
         rs2.addColumn("PLAYING", Types.VARCHAR, 255, 0);
         while (rs.next()) {
                 
-            for (int j = 0; j < meta.getColumnCount(); j++) {
-                firstColumnList.add(rs.getString(j + 1));
-                secondColumnList.add(rs.getString(j + 1));
-               thirdColumnList.add(rs.getString(j + 1));
-            }
+            
+                firstColumnList.add(rs.getString(1));
+                secondColumnList.add(rs.getString(2));
+               thirdColumnList.add(rs.getString(3));
+            
             
             rs2.addRow(firstColumnList.get(i),secondColumnList.get(i),thirdColumnList.get(i));
             i=i+1;
        }
          
-    rs2.addRow(userID, Name,Playing);
+    rs2.addRow(ID, Name,Playing);
         new Csv().write("data/test.csv", rs2, null);
         rs2.close();
 }
