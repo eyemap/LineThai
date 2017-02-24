@@ -177,9 +177,9 @@ Response<BotApiResponse> response =
                 .execute();
 System.out.println(response.code() + " " + response.message());
     }
-    private void testDB(String userID) throws SQLException
+    private void createDB(String userID) throws SQLException
 {
-             SimpleResultSet rs = new SimpleResultSet();
+        SimpleResultSet rs = new SimpleResultSet();
         rs.addColumn("USERID", Types.VARCHAR, 255, 0);
         rs.addColumn("USERNAME", Types.VARCHAR, 255, 0);
         rs.addColumn("PLAYING", Types.VARCHAR, 255, 0);
@@ -198,29 +198,27 @@ System.out.println(response.code() + " " + response.message());
             }
             this.pushText(userID, tempStr);
         }
+        rs.close();
         rs2.close();
 }
-        private void addDB(String userID,String ID,String Name,String Playing) throws SQLException
+        private void insertRow(String userID,String ID,String Name,String Playing) throws SQLException
 {
-             SimpleResultSet rs = new SimpleResultSet();
-        rs.addColumn("USERID", Types.VARCHAR, 255, 0);
-        rs.addColumn("USERNAME", Types.VARCHAR, 255, 0);
-        rs.addColumn("PLAYING", Types.VARCHAR, 255, 0);
-        rs.addRow(ID, Name,Playing);
+       
+        SimpleResultSet rs2 = (SimpleResultSet) new Csv().read("data/test.csv", null, null);
+        rs2.last();
+        rs2.addRow(ID, Name,Playing);
+        new Csv().write("data/test.csv", rs2, null);
+        rs2.close();
+ //       ResultSetMetaData meta = rs2.getMetaData();
         
-        new Csv().write("data/test.csv", rs, null);
-        
-        ResultSet rs2 = new Csv().read("data/test.csv", null, null);
-        ResultSetMetaData meta = rs2.getMetaData();
-        rs2.beforeFirst();
-        while (rs2.next()) {
-            String tempStr = "";
-            for (int i = 0; i < meta.getColumnCount(); i++) {
-                tempStr = tempStr + meta.getColumnLabel(i + 1) + ": " +
-                    rs2.getString(i + 1);
-            }
-            this.pushText(userID, tempStr);
-        }
+//        while (rs2.next()) {
+//            String tempStr = "";
+//            for (int i = 0; i < meta.getColumnCount(); i++) {
+//                tempStr = tempStr + meta.getColumnLabel(i + 1) + ": " +
+//                    rs2.getString(i + 1);
+//            }
+//            this.pushText(userID, tempStr);
+//        }
     
 }
         private void readDB(String userID) throws SQLException
@@ -229,7 +227,7 @@ System.out.println(response.code() + " " + response.message());
         
         ResultSet rs2 = new Csv().read("data/test.csv", null, null);
         ResultSetMetaData meta = rs2.getMetaData();
-        rs2.beforeFirst();
+        
         while (rs2.next()) {
             String tempStr = "";
             for (int i = 0; i < meta.getColumnCount(); i++) {
@@ -238,6 +236,7 @@ System.out.println(response.code() + " " + response.message());
             }
             this.pushText(userID, tempStr);
         }
+        rs2.close();
     
 }
 //     private String [] readDB() throws SQLException
@@ -410,7 +409,7 @@ String userId = event.getSource().getUserId();
                 break;
             }
             case "test" : {//this.replyText(replyToken,text);
-                testDB(userId);
+                createDB(userId);
        
         
             break;
@@ -421,9 +420,10 @@ String userId = event.getSource().getUserId();
         
             break;
             } 
-             case "add" : {//this.replyText(replyToken,text);
-                addDB(userId,"5","ABC","0");
-                addDB(userId,"6","DEF","1");
+             case "insert" : {//this.replyText(replyToken,text);
+                insertRow(userId,"5","ABC","0");
+                insertRow(userId,"6","DEF","1");
+                readDB(userId);
        
             break;
             }
