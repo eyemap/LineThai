@@ -182,14 +182,15 @@ System.out.println(response.code() + " " + response.message());
              SimpleResultSet rs = new SimpleResultSet();
         rs.addColumn("USERID", Types.VARCHAR, 255, 0);
         rs.addColumn("USERNAME", Types.VARCHAR, 255, 0);
-        rs.addRow("1", "OZONE");
-        
+        rs.addRow("2", "EaK");
+        rs.addRow("3", "Bee");
         new Csv().write("data/test.csv", rs, null);
         
         ResultSet rs2 = new Csv().read("data/test.csv", null, null);
         ResultSetMetaData meta = rs2.getMetaData();
-        String tempStr = "";
+        
         while (rs2.next()) {
+            String tempStr = "";
             for (int i = 0; i < meta.getColumnCount(); i++) {
                 tempStr = tempStr + meta.getColumnLabel(i + 1) + ": " +
                     rs2.getString(i + 1);
