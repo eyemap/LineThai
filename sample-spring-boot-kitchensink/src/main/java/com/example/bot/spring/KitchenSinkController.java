@@ -203,23 +203,33 @@ System.out.println(response.code() + " " + response.message());
 }
         private void insertRow(String userID,String ID,String Name,String Playing) throws SQLException
 {
+       ArrayList<String> firstColumnList = new ArrayList<String>();
+       ArrayList<String> secondColumnList = new ArrayList<String>();
+       ArrayList<String> thirdColumnList = new ArrayList<String>();
+        ResultSet rs =  new Csv().read("data/test.csv", null, null);
+        
+        
        
-        SimpleResultSet rs2 = (SimpleResultSet) new Csv().read("data/test.csv", null, null);
-        rs2.last();
-        rs2.addRow(ID, Name,Playing);
+        
+        int i= 0;
+        ResultSetMetaData meta = rs.getMetaData();
+        SimpleResultSet rs2 = new SimpleResultSet();
+        
+        while (rs.next()) {
+                
+            for (int j = 0; j < meta.getColumnCount(); j++) {
+                firstColumnList.add(rs.getString(j + 1));
+                secondColumnList.add(rs.getString(j + 1));
+               thirdColumnList.add(rs.getString(j + 1));
+            }
+            
+            rs2.addRow(firstColumnList.get(i),secondColumnList.get(i),thirdColumnList.get(i));
+            i=i+1;
+       }
+         
+    rs2.addRow(userID, Name,Playing);
         new Csv().write("data/test.csv", rs2, null);
         rs2.close();
- //       ResultSetMetaData meta = rs2.getMetaData();
-        
-//        while (rs2.next()) {
-//            String tempStr = "";
-//            for (int i = 0; i < meta.getColumnCount(); i++) {
-//                tempStr = tempStr + meta.getColumnLabel(i + 1) + ": " +
-//                    rs2.getString(i + 1);
-//            }
-//            this.pushText(userID, tempStr);
-//        }
-    
 }
         private void readDB(String userID) throws SQLException
 {
