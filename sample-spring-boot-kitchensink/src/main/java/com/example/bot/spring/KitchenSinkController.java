@@ -184,7 +184,7 @@ System.out.println(response.code() + " " + response.message());
         rs.addColumn("USERNAME", Types.VARCHAR, 255, 0);
         rs.addColumn("PLAYING", Types.VARCHAR, 255, 0);
         rs.addRow("1", "Ozone","0");
-        String imageUrl = createUri("data/test.csv");
+        String imageUrl = createUri("test/data.csv");
         new Csv().write(imageUrl, rs, null);
         
         ResultSet rs2 = new Csv().read(imageUrl, null, null);
@@ -204,7 +204,7 @@ System.out.println(response.code() + " " + response.message());
         private void insertRow(String userID,String ID,String Name,String Playing) throws SQLException
 {
        SimpleResultSet rs = new SimpleResultSet();
-       String imageUrl = createUri("data/test.csv");
+       String imageUrl = createUri("test/data.csv");
        rs = (SimpleResultSet) new Csv().read(imageUrl, null, null);
        rs.addRow(ID,Name,Playing);
         new Csv().write(imageUrl, rs, null);
@@ -244,7 +244,7 @@ System.out.println(response.code() + " " + response.message());
         private void readDB(String userID) throws SQLException
 {
          
-        String imageUrl = createUri("data/test.csv");
+        String imageUrl = createUri("test/data.csv");
         ResultSet rs2 = new Csv().read(imageUrl, null, null);
         
         ResultSetMetaData meta = rs2.getMetaData();
