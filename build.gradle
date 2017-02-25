@@ -27,6 +27,8 @@ buildscript {
         classpath 'io.spring.gradle:dependency-management-plugin:0.6.0.RELEASE'
         classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE'
         classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
+        
+
     }
 }
 
@@ -61,6 +63,7 @@ subprojects {
     apply plugin: 'propdeps-eclipse'
     apply plugin: 'findbugs'
     apply plugin: 'java'
+ 
        findbugs{
    ignoreFailures=true
   findbugsTest.enabled=false
@@ -82,6 +85,7 @@ subprojects {
     ext['guava.version'] = '19.0' // Update from Spring IO default "17.0" (by Athens-SR1)
     ext['okhttp3.version'] = '3.4.2' // Update from Spring IO default "3.3.1" (by Athens-SR1)
 
+  
     dependencyManagement {
         imports {
             mavenBom 'io.spring.platform:platform-bom:Athens-SR1'
@@ -95,6 +99,7 @@ subprojects {
             dependency 'com.squareup.retrofit2:retrofit:2.1.0'
             dependency 'org.assertj:assertj-core:3.5.2' // Update from 2.5.0 (by Spring-Boot and Spring IO)
             dependency 'org.projectlombok:lombok:1.16.12'
+            dependency 'com.h2database:h2:1.4.193'
         }
     }
 
@@ -103,7 +108,8 @@ subprojects {
         testCompileOnly 'org.projectlombok:lombok'
 
         compileOnly "org.springframework.boot:spring-boot-configuration-processor" // http://docs.spring.io/spring-boot/docs/current/reference/html/configuration-metadata.html#configuration-metadata-annotation-processor
-
+        compileOnly "org.springframework.boot:spring-boot-starter-jdbc"
+        
         testCompile 'com.google.guava:guava'
         testCompile 'com.github.stefanbirkner:system-rules'
         testCompile 'com.squareup.okhttp3:mockwebserver'
