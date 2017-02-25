@@ -204,43 +204,35 @@ System.out.println(response.code() + " " + response.message());
 }
         private void insertRow(String userID,String ID,String Name,String Playing) throws SQLException
 {
-       SimpleResultSet rs = new SimpleResultSet();
-       //String imageUrl = createUri("data/test.csv");
-        String imageUrl = "data/test.csv";;
-       rs = (SimpleResultSet) new Csv().read(imageUrl, null, null);
-       rs.addRow(ID,Name,Playing);
-        new Csv().write(imageUrl, rs, null);
+       
                
-//    ArrayList<String> firstColumnList = new ArrayList<String>();
-//       ArrayList<String> secondColumnList = new ArrayList<String>();
-//       ArrayList<String> thirdColumnList = new ArrayList<String>();
-//       String imageUrl = createUri("/static/buttons/multiplay.csv");
-//        ResultSet rs =  new Csv().read("data/test.csv", null, null);
-//        
-//        
-//       
-//        
-//        int i= 0;
-//        ResultSetMetaData meta = rs.getMetaData();
-//        SimpleResultSet rs2 = new SimpleResultSet();
-//        rs2.addColumn("USERID", Types.VARCHAR, 255, 0);
-//        rs2.addColumn("USERNAME", Types.VARCHAR, 255, 0);
-//        rs2.addColumn("PLAYING", Types.VARCHAR, 255, 0);
-//        while (rs.next()) {
-//                
-//            
-//                firstColumnList.add(rs.getString(1));
-//                secondColumnList.add(rs.getString(2));
-//               thirdColumnList.add(rs.getString(3));
-//            
-//            
-//            rs2.addRow(firstColumnList.get(i),secondColumnList.get(i),thirdColumnList.get(i));
-//            i=i+1;
-//       }
-//         
-//    rs2.addRow(ID, Name,Playing);
-//        new Csv().write("data/test.csv", rs2, null);
-//        rs2.close();
+    ArrayList<String> firstColumnList = new ArrayList<String>();
+       ArrayList<String> secondColumnList = new ArrayList<String>();
+       ArrayList<String> thirdColumnList = new ArrayList<String>();
+       String imageUrl = "data/test.csv";
+        ResultSet rs =  new Csv().read(imageUrl, null, null);
+        
+        int i= 0;
+        ResultSetMetaData meta = rs.getMetaData();
+        SimpleResultSet rs2 = new SimpleResultSet();
+        rs2.addColumn("USERID", Types.VARCHAR, 255, 0);
+        rs2.addColumn("USERNAME", Types.VARCHAR, 255, 0);
+        rs2.addColumn("PLAYING", Types.VARCHAR, 255, 0);
+        while (rs.next()) {
+                
+            
+                firstColumnList.add(rs.getString(1));
+                secondColumnList.add(rs.getString(2));
+               thirdColumnList.add(rs.getString(3));
+            
+            
+            rs2.addRow(firstColumnList.get(i),secondColumnList.get(i),thirdColumnList.get(i));
+            i=i+1;
+       }
+         
+    rs2.addRow(ID, Name,Playing);
+        new Csv().write(imageUrl, rs2, null);
+        rs2.close();
     
 }
         private void readDB(String userID) throws SQLException
