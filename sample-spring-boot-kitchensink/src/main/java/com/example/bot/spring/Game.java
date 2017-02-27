@@ -380,6 +380,7 @@ System.out.println(response.code() + " " + response.message());
                     }
                     this.pushText(userId,"\n" + pictureName +
                         " wins! (" + roundPoints + " points.)\uDBC0\uDC7F");
+                    this.pushText(userId,"To play again, Type \'menu\'");
                     scoreboard.addToScore(currPlayer,roundPoints);
                     //this.pushText(userId,"---------------\n" + scoreboard);
                     return;
@@ -416,6 +417,7 @@ System.out.println(response.code() + " " + response.message());
         }
         catch (EmptyDeckException e) {
             this.pushText(userId,"Deck exhausted! This game is a draw.");
+            this.pushText(userId,"To play again, Type \'menu\'");
             //e.printStackTrace();
         }
         

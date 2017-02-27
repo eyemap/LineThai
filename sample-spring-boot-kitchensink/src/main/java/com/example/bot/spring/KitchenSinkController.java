@@ -279,7 +279,7 @@ if (eventData.equals("00PlayBOT")){
                this.pushText(userId, "Please select GROUP to play");
                 CarouselTemplate carouselTemplate = new CarouselTemplate(
                         Arrays.asList(
-                                new CarouselColumn(null, "GROUP1", "\uD83D\uDC2F : Conservative BOT\n\uD83D\uDC37 : Greedy BOT\n\uD83D\uDC38 : Crafty BOGT", Arrays.asList(
+                                new CarouselColumn(null, "GROUP1", "\uD83D\uDC2F : Conservative BOT\n\uD83D\uDC37 : Greedy BOT\n\uD83D\uDC38 : Crafty BOT", Arrays.asList(
                                         
                                         new PostbackAction("Join Group1",
                                                            "JoinGroup1")
