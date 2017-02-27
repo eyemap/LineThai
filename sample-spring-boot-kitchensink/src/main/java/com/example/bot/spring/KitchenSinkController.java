@@ -64,7 +64,7 @@ import com.linecorp.bot.model.message.template.ButtonsTemplate;
 
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
-import com.linecorp.bot.model.message.template.ConfirmTemplate;
+
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.linecorp.bot.model.response.BotApiResponse;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
@@ -199,50 +199,7 @@ String userId = event.getSource().getUserId();
                 TemplateMessage templateMessage = new TemplateMessage("Please Select Menu", buttonsTemplate);
                 this.reply(replyToken, templateMessage);
                }
-                /*
-                if (!KitchenSinkController.playing.get(userId)){
-                    if (KitchenSinkController.round.containsKey(userId)) {
-            KitchenSinkController.round.replace(userId, 0);
-        } else {
-            KitchenSinkController.round.put(userId, 0);
-        }  // New
-         
-                    if (KitchenSinkController.joined.containsKey(userId)) {
-            KitchenSinkController.joined.replace(userId, false);
-        } else {
-            KitchenSinkController.joined.put(userId, false);
-        }  // New
-                // joined = false;    // 267F คนพิการ  //263A หน้ายิ้ม  //2614 ร่ม  //2603 //26C4 หิมะ //\u26F9 นักบาส //2620  //26D1 Carefully
-               // Eak Newest String imageUrl = createUri("/static/buttons/1040.jpg");    //2640 สีชมพู  /2642 สีฟ้า
-                CarouselTemplate carouselTemplate = new CarouselTemplate(
-                        Arrays.asList(
-                                new CarouselColumn(null, "GROUP1", "\uD83D\uDC2F : Conservative BOT\n\uD83D\uDC37 : Greedy BOT\n\uD83D\uDC38 : Crafty BOGT", Arrays.asList(
-                                        
-                                        new PostbackAction("Join Group1",
-                                                           "JoinGroup1")
-                                )),
-                                new CarouselColumn(null,"GROUP2", "\uD83D\uDC37 : Greedy BOT\n\uD83D\uDC38 : Crafty BOT\n\uD83D\uDC3C : Carefully BOT", Arrays.asList(
-                                        new PostbackAction("Join Group2",
-                                                           "JoinGroup2")
-                                        
-                                )),
-                                new CarouselColumn(null,"GROUP3", "\uD83D\uDC38 : Crafty BOT\n\uD83D\uDC3C : Carefully BOT\n\uD83D\uDC2F : Conservative BOT", Arrays.asList(
-                                        new PostbackAction("Join Group3",
-                                                           "JoinGroup3")
-                                        
-                                )),
-                                new CarouselColumn(null, "GROUP4", "\uD83D\uDC3C : Carefully BOT \n\uD83D\uDC2F : Conservative BOT \n\uD83D\uDC37 : Greedy BOT", Arrays.asList(
-                                        
-                                        new PostbackAction("Join Group4",
-                                                           "JoinGroup4")
-                                ))
-                                        
-                        ));
-                TemplateMessage templateMessage = new TemplateMessage("Your Line App is not support Please Update", carouselTemplate);
-                this.reply(replyToken, templateMessage);
-                break;
-            } 
-                */
+               
                 break;
             }
             
@@ -261,60 +218,8 @@ String userId = event.getSource().getUserId();
                 }
                 break;
             }
-            case "confirm": {
-                ConfirmTemplate confirmTemplate = new ConfirmTemplate(
-                        "Do it?",
-                        new MessageAction("Yes", "Yes!"),
-                        new MessageAction("No", "No!")
-                );
-                TemplateMessage templateMessage = new TemplateMessage("Confirm alt text", confirmTemplate);
-                this.reply(replyToken, templateMessage);
-                break;
-            }
+                                
             
-            case "buttons": {
-                String imageUrl = createUri("/static/buttons/1040.jpg");
-                ButtonsTemplate buttonsTemplate = new ButtonsTemplate(
-                        imageUrl,
-                        "My button sample",
-                        "Hello, my button",
-                        Arrays.asList(
-                                new URIAction("Go to line.me",
-                                              "https://line.me"),
-                                new PostbackAction("Say hello1",
-                                                   "hello こんにちは"),
-                                new PostbackAction("言 hello2",
-                                                   "hello こんにちは",
-                                                   "hello こんにちは"),
-                                new MessageAction("Say message",
-                                                  "Rice=米")
-                        ));
-                TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
-                this.reply(replyToken, templateMessage);
-                break;
-            }
-            case "carousel": {
-                String imageUrl = createUri("/static/buttons/1040.jpg");
-                CarouselTemplate carouselTemplate = new CarouselTemplate(
-                        Arrays.asList(
-                                new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
-                                        new URIAction("Go to line.me",
-                                                      "https://line.me"),
-                                        new PostbackAction("Say hello1",
-                                                           "hello こんにちは")
-                                )),
-                                new CarouselColumn(imageUrl, "hoge", "fuga", Arrays.asList(
-                                        new PostbackAction("言 hello2",
-                                                           "hello こんにちは",
-                                                           "hello こんにちは"),
-                                        new MessageAction("Say message",
-                                                          "Rice=米")
-                                ))
-                        ));
-                TemplateMessage templateMessage = new TemplateMessage("Carousel alt text", carouselTemplate);
-                this.reply(replyToken, templateMessage);
-                break;
-            }
             case "test" : this.replyText(replyToken,text);
             break;
                 
