@@ -117,7 +117,7 @@ static HashMap<String,Integer> round = new HashMap<String,Integer>();
     @EventMapping
     public void handleFollowEvent(FollowEvent event) {
         String  welcome = "Welcome to UNO Card game Bot \n"
-                + "To play a game please type \"menu\n";
+                + "To play a game please type \"menu\"\n";
         String replyToken = event.getReplyToken();
         this.replyText(replyToken, welcome);
     }
@@ -127,7 +127,7 @@ static HashMap<String,Integer> round = new HashMap<String,Integer>();
         
         //this.replyText(replyToken, "Joined " + event.getSource());
         String  welcome = "Welcome to UNO Card game Bot \n"
-                + "To play a game please type \"menu\n";
+                + "To play a game please type \"menu\"\n";
         String replyToken = event.getReplyToken();
         this.replyText(replyToken, welcome);
     }
